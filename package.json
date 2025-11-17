@@ -4,13 +4,25 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "login": "tsx login.ts",
+    "scrape": "tsx scrape.ts",
+    "check-messages": "tsx check-messages.ts",
+    "extract-first-message": "tsx extract-first-message.ts",
+    "authorize-gmail": "tsx authorize-gmail.ts",
+    "gmail-poller": "tsx gmail-poller.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "devDependencies": {
-    "@playwright/test": "^1.56.1"
+    "@playwright/test": "^1.56.1",
+    "playwright-extra": "^4.3.6",
+    "puppeteer-extra-plugin-stealth": "^2.11.2",
+    "tsx": "^4.20.6"
+  },
+  "dependencies": {
+    "googleapis": "^166.0.0"
   }
 }

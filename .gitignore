@@ -42,3 +42,25 @@ Thumbs.db
 # Environment variables
 .env
 .env.local
+
+# Authentication & Session files (contains sensitive cookies)
+auth-state.json
+cookies.json
+
+# Google OAuth credentials and tokens
+google_credentials.json
+token.json
+seen_emails.json
+
+# Sample data with PII
+first_message_data.json
+first_message_extracted.json
+new_booking_request.json
+
+# Screenshots may contain sensitive information
+*.png
+*.jpg
+*.jpeg
+
+# Playwright test artifacts
+.playwright-mcp/
