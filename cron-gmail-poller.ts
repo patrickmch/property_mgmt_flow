@@ -4,11 +4,12 @@ import * as fs from 'fs';
 import { db } from './database';
 import { messageQueue } from './message-queue';
 import { errorNotifier } from './error-notifier';
+import { SAFETY_CONFIG, SYSTEM_CONFIG } from './config';
 
 const CREDENTIALS_PATH = process.env.GMAIL_CREDENTIALS_PATH || 'google_credentials.json';
 const TOKEN_PATH = process.env.GMAIL_TOKEN_PATH || 'token.json';
-const GMAIL_CHECK_INTERVAL = process.env.GMAIL_CHECK_INTERVAL || '*/1 * * * *'; // Every 1 minute
-const EMAIL_FILTER = process.env.GMAIL_FILTER || 'from:furnishedfinder.com';
+const GMAIL_CHECK_INTERVAL = SYSTEM_CONFIG.GMAIL_CHECK_INTERVAL;
+const EMAIL_FILTER = SYSTEM_CONFIG.GMAIL_FILTER;
 
 /**
  * Gmail Poller using node-cron
@@ -27,6 +28,23 @@ export class GmailPoller {
    */
   private initializeAuth(): void {
     try {
+      // Check if credentials file exists
+      if (!fs.existsSync(CREDENTIALS_PATH)) {
+        console.warn('⚠️  Gmail credentials not found - email polling disabled');
+        console.warn(`   Missing file: ${CREDENTIALS_PATH}`);
+        this.auth = null;
+        return;
+      }
+
+      // Check if token file exists
+      if (!fs.existsSync(TOKEN_PATH)) {
+        console.warn('⚠️  Gmail token not found - email polling disabled');
+        console.warn(`   Missing file: ${TOKEN_PATH}`);
+        console.warn('   Run: npm run authorize-gmail');
+        this.auth = null;
+        return;
+      }
+
       const credentials = JSON.parse(fs.readFileSync(CREDENTIALS_PATH, 'utf8'));
       const { client_secret, client_id, redirect_uris } = credentials.installed;
 
@@ -43,7 +61,8 @@ export class GmailPoller {
       console.log('✓ Gmail authentication initialized');
     } catch (error) {
       console.error('❌ Failed to initialize Gmail auth:', error);
-      throw error;
+      console.error('   Email polling will be disabled');
+      this.auth = null;
     }
   }
 
@@ -51,6 +70,12 @@ export class GmailPoller {
    * Start the cron job
    */
   start(): void {
+    if (!this.auth) {
+      console.warn('⚠️  Gmail poller cannot start - authentication not configured');
+      console.warn('   System will continue without email polling');
+      return;
+    }
+
     if (this.isRunning) {
       console.log('⚠️  Gmail poller is already running');
       return;
@@ -151,6 +176,22 @@ export class GmailPoller {
         if (type !== 'NEW_INQUIRY') {
           console.log(`   ⏭️  Skipping ${type}: ${subject}`);
           continue;
+        }
+
+        // 🚨 SAFETY SWITCH #1: TEST MODE FILTER
+        if (SAFETY_CONFIG.TEST_MODE) {
+          const senderName = tenantName || 'Unknown';
+          if (!senderName.includes(SAFETY_CONFIG.TEST_SENDER_NAME)) {
+            console.log('\n   ' + '='.repeat(70));
+            console.log('   🛡️  TEST MODE: IGNORING MESSAGE (not from test sender)');
+            console.log('   ' + '='.repeat(70));
+            console.log(`   📋 Subject: ${subject}`);
+            console.log(`   👤 From: ${from}`);
+            console.log(`   👤 Tenant: ${senderName}`);
+            console.log(`   ⚠️  Test mode enabled - only processing messages from "${SAFETY_CONFIG.TEST_SENDER_NAME}"`);
+            console.log('   ' + '='.repeat(70));
+            continue;
+          }
         }
 
         console.log('\n   ' + '='.repeat(70));

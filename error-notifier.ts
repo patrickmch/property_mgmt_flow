@@ -17,6 +17,20 @@ export class ErrorNotifier {
 
   private initializeAuth() {
     try {
+      // Check if credentials file exists
+      if (!fs.existsSync(CREDENTIALS_PATH)) {
+        console.warn('⚠️  Gmail credentials not found - email notifications disabled');
+        this.auth = null;
+        return;
+      }
+
+      // Check if token file exists
+      if (!fs.existsSync(TOKEN_PATH)) {
+        console.warn('⚠️  Gmail token not found - email notifications disabled');
+        this.auth = null;
+        return;
+      }
+
       const credentials = JSON.parse(fs.readFileSync(CREDENTIALS_PATH, 'utf8'));
       const { client_secret, client_id, redirect_uris } = credentials.installed;
 
