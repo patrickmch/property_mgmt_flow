@@ -1,9 +1,12 @@
 {
   "name": "furnished-finder-agent",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Automated tenant response system for Furnished Finder",
+  "main": "server.ts",
   "scripts": {
+    "start": "tsx server.ts",
+    "dev": "tsx watch server.ts",
+    "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
     "login": "tsx login.ts",
     "scrape": "tsx scrape.ts",
@@ -12,17 +15,31 @@
     "authorize-gmail": "tsx authorize-gmail.ts",
     "gmail-poller": "tsx gmail-poller.ts"
   },
-  "keywords": [],
+  "keywords": [
+    "automation",
+    "furnished-finder",
+    "playwright",
+    "ai",
+    "rental"
+  ],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "devDependencies": {
     "@playwright/test": "^1.56.1",
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.10.2",
+    "@types/better-sqlite3": "^7.6.12",
     "playwright-extra": "^4.3.6",
     "puppeteer-extra-plugin-stealth": "^2.11.2",
-    "tsx": "^4.20.6"
+    "tsx": "^4.20.6",
+    "typescript": "^5.7.2"
   },
   "dependencies": {
-    "googleapis": "^166.0.0"
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "googleapis": "^166.0.0",
+    "node-cron": "^3.0.3",
+    "sql.js": "^1.12.0"
   }
 }

@@ -64,3 +64,7 @@ new_booking_request.json
 
 # Playwright test artifacts
 .playwright-mcp/
+
+# Database (contains message history)
+messages.db
+messages.db-journal

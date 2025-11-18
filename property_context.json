@@ -1,0 +1,128 @@
+{
+  "property_details": {
+    "property_id": "433442_1",
+    "type": "Condo",
+    "location": {
+      "city": "Lander",
+      "state": "Wyoming",
+      "address": "Downtown Lander",
+      "description": "Downtown location with easy access to local amenities"
+    },
+    "specs": {
+      "size_sqft": 800,
+      "bedrooms": "Studio",
+      "bathrooms": 1,
+      "beds": "1 Queen Bed",
+      "layout": "Open concept with high ceilings, beautiful wood detailing, and bohemian modern furniture"
+    },
+    "pricing": {
+      "monthly_rent": 1200,
+      "utilities_included": true,
+      "cleaning_fee": 100,
+      "deposit_refundable": 1000,
+      "pet_deposit_refundable": 400,
+      "minimum_stay_months": 1
+    },
+    "availability": {
+      "available_from": "2026-01-03",
+      "note": "Availability should be dynamically determined - check Furnished Finder interface for current dates"
+    },
+    "amenities": {
+      "kitchen": [
+        "Full kitchen",
+        "Microwave",
+        "Full-size fridge",
+        "Kitchen essentials",
+        "Kitchenware"
+      ],
+      "laundry": [
+        "Washer and dryer in unit"
+      ],
+      "climate_control": [
+        "Air conditioning",
+        "Heating"
+      ],
+      "entertainment": [
+        "Samsung Smart TV (widescreen, mobile)",
+        "TV",
+        "WiFi/Internet"
+      ],
+      "bathroom": [
+        "Private bath",
+        "Hair dryer",
+        "Starter toiletries",
+        "Bathware and linens"
+      ],
+      "safety": [
+        "Smoke detector",
+        "Carbon monoxide detector",
+        "Fire extinguisher",
+        "First aid kit"
+      ],
+      "parking": [
+        "Free parking on premises"
+      ],
+      "fitness": [
+        "Gym access"
+      ],
+      "other": [
+        "Storage",
+        "Quiet environment",
+        "Professional cleaning (sanitation priority)"
+      ]
+    },
+    "house_rules": {
+      "pets": "Allowed (pet deposit required)",
+      "smoking": "Not allowed",
+      "accessibility": "Stairs at entrance and/or inside property"
+    },
+    "nearby_facilities": [
+      {
+        "name": "Riverton Outpatient Clinic",
+        "distance": "21.22 miles"
+      },
+      {
+        "name": "Sagewest Health Care",
+        "distance": "21.26 miles"
+      },
+      {
+        "name": "Hot Springs County Memorial Hospital",
+        "distance": "62.34 miles"
+      },
+      {
+        "name": "Rock Springs Outpatient Clinic",
+        "distance": "89.78 miles"
+      },
+      {
+        "name": "Memorial Hospital Sweetwater County",
+        "distance": "90.15 miles"
+      }
+    ],
+    "description": "This beautiful 800 square foot craftsman loft apartment is not only in a great location but has everything you need for an unforgettable stay. This studio apartment is situated in downtown Lander Wyoming. It features an open kitchen, high ceilings, beautiful wood detailing, and bohemian modern furniture. We take cleanliness seriously, and sanitation is our number one priority. Our professional cleaner ensures your safety.",
+    "landlord_info": {
+      "tenure": "3 years, 1 month on Furnished Finder",
+      "reviews": 0,
+      "last_updated": "2025-10-05"
+    },
+    "response_guidelines": {
+      "tone": "Friendly, professional, and helpful",
+      "highlight": [
+        "Downtown Lander location",
+        "Fully furnished craftsman loft with modern amenities",
+        "Professional cleaning with sanitation priority",
+        "Pet-friendly (with deposit)",
+        "All utilities included",
+        "Flexible for traveling healthcare professionals"
+      ],
+      "common_questions": {
+        "pets": "Yes, pets are welcome! We require a $400 refundable pet deposit.",
+        "parking": "Free parking is available on premises.",
+        "utilities": "All utilities are included in the monthly rent of $1,200.",
+        "internet": "WiFi is included. The Smart TV is available but streaming services require your own login.",
+        "minimum_stay": "The minimum stay is 1 month.",
+        "cleaning": "A $100 cleaning fee applies. We maintain high sanitation standards with professional cleaning.",
+        "availability": "Please check current availability on Furnished Finder as dates may change."
+      }
+    }
+  }
+}

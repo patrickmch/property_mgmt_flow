@@ -1,6 +1,15 @@
 # Furnished Finder Agent
 
-Automated web scraping and interaction tool for Furnished Finder using Playwright with stealth plugins.
+Automated tenant response system for Furnished Finder that monitors Gmail, extracts messages, generates AI responses, and automatically replies to booking inquiries.
+
+## Project Vision
+
+This project automates the entire tenant inquiry workflow:
+1. **Monitor Gmail** for new Furnished Finder booking notifications
+2. **Extract Messages** from Furnished Finder using headless Playwright
+3. **Generate Responses** using a custom LLM API with property context
+4. **Send Replies** automatically back through Furnished Finder
+5. **Track History** in SQLite database with full audit trail
 
 ## Prerequisites
 
@@ -43,17 +52,26 @@ This will install all local dependencies including:
 
 ```
 furnished-finder-agent/
-├── login.ts                      # Login automation script
-├── scrape.ts                     # Main scraping logic
-├── check-messages.ts             # Message checking automation
-├── extract-first-message.ts      # Extract first inbox message (AI-powered workflow)
+├── server.ts                     # Main Express server & orchestration
+├── cron-gmail-poller.ts          # node-cron Gmail polling job
+├── message-queue.ts              # In-memory message queue
+├── llm-client.ts                 # LLM API client
+├── error-notifier.ts             # Email error notifications
+├── playwright-responder.ts       # Headless browser response sender
+├── database.ts                   # SQLite message history
+├── property_context.json         # Property details for LLM context
+├── Dockerfile                    # Railway deployment config
+├── .env.example                  # Environment variables template
+├── login.ts                      # [Legacy] Login automation script
+├── scrape.ts                     # [Legacy] Main scraping logic
+├── check-messages.ts             # [Legacy] Message checking automation
+├── extract-first-message.ts      # [Legacy] Extract first inbox message
 ├── authorize-gmail.ts            # Gmail OAuth setup (browser-based)
 ├── authorize-gmail-with-code.ts  # Gmail OAuth setup (code-based)
-├── gmail-poller.ts               # Poll Gmail for new booking requests
+├── gmail-poller.ts               # [Legacy] Poll Gmail for new booking requests
 ├── auth-state.json               # Saved Furnished Finder authentication state
 ├── cookies.json                  # Browser cookies
-├── first_message_extracted.json  # Sample extracted message data
-├── new_booking_request.json      # Sample booking request data
+├── messages.db                   # SQLite database for message tracking
 ├── package.json                  # Project dependencies and scripts
 └── README.md                     # This file
 ```
@@ -201,6 +219,59 @@ npm list playwright-extra puppeteer-extra-plugin-stealth
 
 ### Browser Detection Issues
 Check that you're properly initializing the stealth plugin before launching the browser.
+
+## Roadmap & TODO
+
+### Phase 1: Core Automation (Current)
+- [x] Gmail API integration for monitoring
+- [x] Playwright message extraction
+- [x] Stealth plugin for bot detection avoidance
+- [ ] **Express server with orchestration**
+- [ ] **node-cron Gmail polling (1 minute interval)**
+- [ ] **In-memory message queue**
+- [ ] **LLM API client integration**
+- [ ] **SQLite database for message history**
+- [ ] **Error notification via email**
+- [ ] **Headless Playwright response sender**
+- [ ] **Status endpoint for monitoring**
+
+### Phase 2: Railway Deployment
+- [ ] Dockerfile with Playwright dependencies
+- [ ] Environment variable configuration
+- [ ] Auth state persistence strategy
+- [ ] GitHub → Railway auto-deploy
+- [ ] Production testing & monitoring
+
+### Phase 3: Advanced Features
+- [ ] **Dynamic availability checking** - Scrape current availability from Furnished Finder interface instead of static dates
+- [ ] Message queuing with retry logic
+- [ ] Rate limiting & anti-detection delays
+- [ ] Auth token refresh automation
+- [ ] Database-backed queue (Redis/Bull)
+- [ ] Prometheus metrics & monitoring
+- [ ] Telegram bot for manual intervention
+- [ ] Multi-property support with separate contexts
+- [ ] A/B testing different response templates
+- [ ] Sentiment analysis for tenant prioritization
+
+### Phase 4: Intelligence Layer
+- [ ] Learn from successful/unsuccessful responses
+- [ ] Auto-categorize tenant inquiries
+- [ ] Smart scheduling suggestions
+- [ ] Price optimization based on demand
+- [ ] Automated follow-ups for non-responders
+
+## Current Development Status
+
+**Building local version first**, then deploying to Railway via GitHub auto-deploy.
+
+**LLM API Endpoint**: `https://llmrouter-production.up.railway.app/api/query`
+
+**Gmail Polling**: Every 60 seconds (1,440 checks/day, well within 10K/day limit)
+
+**Queue Strategy**: Sequential processing with in-memory queue
+
+**Error Handling**: Email notifications to same Gmail account
 
 ## License
 
