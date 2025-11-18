@@ -30,9 +30,6 @@
     "@types/express": "^5.0.0",
     "@types/node": "^22.10.2",
     "@types/better-sqlite3": "^7.6.12",
-    "playwright-extra": "^4.3.6",
-    "puppeteer-extra-plugin-stealth": "^2.11.2",
-    "tsx": "^4.20.6",
     "typescript": "^5.7.2"
   },
   "dependencies": {
@@ -40,6 +37,9 @@
     "express": "^4.21.2",
     "googleapis": "^166.0.0",
     "node-cron": "^3.0.3",
-    "sql.js": "^1.12.0"
+    "sql.js": "^1.12.0",
+    "playwright-extra": "^4.3.6",
+    "puppeteer-extra-plugin-stealth": "^2.11.2",
+    "tsx": "^4.20.6"
   }
 }
